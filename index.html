@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Feliz Aniversário, Sofia 💙</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💙</text></svg>">
+
+<!-- Google Fonts: Quicksand (títulos/mensagem, redondinha e romântica) + Poppins (textos de interface) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ==========================================================
+     TOKENS — paleta, para facilitar customização
+     ========================================================== */
+  :root{
+    --navy-deep:#070b1f;
+    --navy-mid:#0d1636;
+    --navy-card:rgba(17,27,62,0.62);
+    --blue-light:#8ecbff;
+    --blue-soft:#bfe3ff;
+    --text-soft:#eaf3ff;
+    --violet-accent:#7c8cff;
+  }
+
+  /* ==========================================================
+     RESET & BASE
+     ========================================================== */
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 50%, var(--navy-deep) 100%);
+    color:var(--text-soft);
+    font-family:'Poppins', sans-serif;
+    overflow-x:hidden;
+    min-height:100vh;
+    min-height:100dvh;
+  }
+
+  /* ==========================================================
+     CORAÇÕES FLUTUANTES DE FUNDO
+     ========================================================== */
+  .hearts-bg{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:0;
+    pointer-events:none;
+  }
+  .heart{
+    position:absolute;
+    bottom:-10%;
+    filter:drop-shadow(0 0 4px rgba(142,203,255,0.65));
+    animation-name:floatUp;
+    animation-timing-function:ease-in;
+    animation-iteration-count:infinite;
+  }
+  .heart svg{ width:100%; height:100%; display:block; }
+  @keyframes floatUp{
+    0%   { transform:translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    8%   { opacity:1; }
+    50%  { transform:translateY(-55vh) translateX(12px) rotate(10deg); }
+    92%  { opacity:.5; }
+    100% { transform:translateY(-110vh) translateX(-14px) rotate(-8deg); opacity:0; }
+  }
+
+  /* ==========================================================
+     DYNAMIC ISLAND — player de música fixo no topo
+     ========================================================== */
+  .dynamic-island{
+    position:fixed;
+    top:calc(env(safe-area-inset-top, 8px) + 6px);
+    left:50%;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#0b0b0f;
+    padding:8px 16px 8px 8px;
+    border-radius:24px;
+    box-shadow:0 10px 24px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.06);
+    max-width:min(78vw, 260px);
+    animation:islandIn .7s cubic-bezier(.34,1.56,.64,1) .2s both;
+  }
+  @keyframes islandIn{
+    from{ transform:translateX(-50%) scale(.6); opacity:0; }
+    to  { transform:translateX(-50%) scale(1); opacity:1; }
+  }
+  .di-art{
+    width:24px; height:24px; border-radius:50%; flex-shrink:0;
+    background:conic-gradient(from 0deg, var(--blue-light), var(--violet-accent), var(--blue-light));
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px;
+    animation:spin 4.5s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .di-text{ display:flex; flex-direction:column; overflow:hidden; line-height:1.25; }
+  .di-song{ font-size:11px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .di-artist{ font-size:9px; color:rgba(255,255,255,.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .di-eq{ display:flex; align-items:flex-end; gap:2px; height:12px; flex-shrink:0; margin-left:auto; }
+  .di-eq span{ width:2.5px; background:var(--blue-light); border-radius:2px; animation:eq .9s ease-in-out infinite; }
+  .di-eq span:nth-child(1){ animation-delay:0s; }
+  .di-eq span:nth-child(2){ animation-delay:.2s; }
+  .di-eq span:nth-child(3){ animation-delay:.4s; }
+  @keyframes eq{ 0%,100%{ height:3px; } 50%{ height:12px; } }
+
+  /* ==========================================================
+     SECTIONS — base compartilhada
+     ========================================================== */
+  .section{
+    position:relative;
+    z-index:1;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:110px 24px 64px;
+    text-align:center;
+  }
+  .fade-in{ opacity:0; transform:translateY(26px); transition:opacity .9s ease, transform .9s ease; }
+  .fade-in.visible{ opacity:1; transform:translateY(0); }
+
+  /* ==========================================================
+     SEÇÃO 1 — abertura
+     ========================================================== */
+  .hero-message{
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size:clamp(1.5rem, 6vw, 2.3rem);
+    line-height:1.55;
+    color:#f3f8ff;
+    text-shadow:0 0 24px rgba(142,203,255,.4);
+    margin-bottom:48px;
+    max-width:340px;
+  }
+
+  /* Botão de rolagem, usado nas seções 1 e 2 */
+  .scroll-btn{
+    width:54px; height:54px;
+    border-radius:18px;
+    border:1px solid rgba(142,203,255,.35);
+    background:rgba(142,203,255,.08);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    animation:glowPulse 3s ease-in-out infinite;
+    transition:transform .25s ease;
+  }
+  .scroll-btn:hover{ transform:scale(1.07); }
+  .scroll-btn:active{ transform:scale(.9); }
+  .scroll-btn svg{ width:20px; height:20px; }
+  @keyframes glowPulse{
+    0%,100%{ box-shadow:0 0 16px rgba(95,184,255,.22); }
+    50%    { box-shadow:0 0 28px rgba(95,184,255,.45); }
+  }
+
+  /* ==========================================================
+     SEÇÃO 2 — galeria de fotos
+     ========================================================== */
+  .section-title{
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size:clamp(1.3rem, 5vw, 1.9rem);
+    margin-bottom:32px;
+    color:#f3f8ff;
+  }
+  .gallery{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:8px 8vw 28px;
+    width:100%;
+  }
+  .gallery::-webkit-scrollbar{ display:none; }
+  .photo-card{
+    flex:0 0 74vw;
+    max-width:300px;
+    aspect-ratio:4/5;
+    scroll-snap-align:center;
+    border-radius:26px;
+    overflow:hidden;
+    border:1px solid rgba(142,203,255,.28);
+    box-shadow:0 14px 30px rgba(0,0,0,.45), 0 0 26px rgba(95,184,255,.22);
+  }
+  .photo-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* ==========================================================
+     SEÇÃO 3 — carta de aniversário
+     ========================================================== */
+  .message-card{
+    max-width:600px;
+    background:var(--navy-card);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border:1px solid rgba(142,203,255,.32);
+    border-radius:28px;
+    padding:38px 28px;
+    box-shadow:0 0 44px rgba(95,184,255,.16), 0 16px 40px rgba(0,0,0,.4);
+    text-align:left;
+  }
+  .message-text{
+    font-family:'Quicksand', sans-serif;
+    font-size:clamp(1rem, 3.6vw, 1.12rem);
+    line-height:1.9;
+    color:var(--text-soft);
+    margin-bottom:18px;
+  }
+  .message-text:last-child{ margin-bottom:0; }
+
+  /* ==========================================================
+     RESPONSIVO — tablet / desktop
+     ========================================================== */
+  @media (min-width:768px){
+    .gallery{ flex-wrap:wrap; justify-content:center; overflow:visible; padding:8px 24px 28px; }
+    .photo-card{ flex:0 0 260px; max-width:260px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Camada de corações animados, fixa atrás de todo o conteúdo -->
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <!-- Dynamic Island: fica fixa no topo durante toda a rolagem -->
+  <div class="dynamic-island">
+    <div class="di-art">🎵</div>
+    <div class="di-text">
+      <span class="di-song">This Is Love</span>
+      <span class="di-artist">Guns N&rsquo;&nbsp;Roses</span>
+    </div>
+    <div class="di-eq"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- SEÇÃO 1 — mensagem de abertura -->
+  <section class="section" id="section1">
+    <p class="hero-message fade-in">Oi Sofia,<br>feliz aniversário,<br>esse é o seu presente 💙</p>
+    <button class="scroll-btn fade-in" data-target="section2" aria-label="Rolar para a próxima seção">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#bfe3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  </section>
+
+  <!-- SEÇÃO 2 — galeria de fotos -->
+  <section class="section" id="section2">
+    <h2 class="section-title fade-in">Nossos Momentos</h2>
+    <div class="gallery fade-in">
+      <div class="photo-card"><img src="images/foto1.webp" alt="Foto de Sofia" loading="lazy"></div>
+      <div class="photo-card"><img src="images/foto2.jpg" alt="Foto de Sofia" loading="lazy"></div>
+      <div class="photo-card"><img src="images/foto3.webp" alt="Foto de Sofia" loading="lazy"></div>
+      <div class="photo-card"><img src="images/foto4.jpg" alt="Foto de Sofia" loading="lazy"></div>
+    </div>
+    <button class="scroll-btn fade-in" data-target="section3" aria-label="Rolar para a próxima seção">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#bfe3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  </section>
+
+  <!-- SEÇÃO 3 — carta de aniversário -->
+  <section class="section" id="section3">
+    <div class="message-card fade-in">
+      <p class="message-text">Feliz aniversário, Sofia! 🎉 Hoje é um dia super especial, porque é o dia em que uma pessoa incrível como você veio ao mundo.</p>
+      <p class="message-text">Que os seus 13 anos sejam cheios de alegria, risadas, amizades verdadeiras e muitos sonhos se tornando realidade. Você merece tudo de mais bonito que a vida pode oferecer.</p>
+      <p class="message-text">Que esse novo ciclo venha repleto de conquistas, aventuras, momentos inesquecíveis e muito carinho ao seu redor. Continue sendo essa pessoa doce, iluminada e cheia de energia boa que você é.</p>
+      <p class="message-text">Parabéns, princesa! Que o seu dia seja tão especial quanto você. 💙🎂</p>
+      <!-- Se quiser assinar a carta, adicione uma linha como esta antes do fechamento da div acima:
+      <p class="message-text" style="text-align:right; font-weight:600;">Com carinho, [seu nome]</p> -->
+    </div>
+  </section>
+
+  <script>
+    // ---------------------------------------------------------
+    // Gera os corações flutuantes com tamanho/posição/duração
+    // aleatórios, para um efeito orgânico e não repetitivo
+    // ---------------------------------------------------------
+    const heartSVG = '<svg viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg"><path d="M23.6 0c-3.4 0-6.3 2-7.6 5-1.3-3-4.2-5-7.6-5C3.8 0 0 3.8 0 8.4c0 7.6 8 12.6 16 20.6 8-8 16-13 16-20.6C32 3.8 28.2 0 23.6 0z" fill="#8ecbff"/></svg>';
+    const heartsBg = document.getElementById('heartsBg');
+    const HEART_COUNT = 28;
+    for (let i = 0; i < HEART_COUNT; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      const size = Math.random() * 14 + 8;
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      heart.style.opacity = (Math.random() * 0.4 + 0.35).toFixed(2);
+      heart.style.animationDuration = (Math.random() * 8 + 11) + 's';
+      heart.style.animationDelay = (Math.random() * 12) + 's';
+      heart.innerHTML = heartSVG;
+      heartsBg.appendChild(heart);
+    }
+
+    // ---------------------------------------------------------
+    // Fade-in suave quando cada seção entra na tela
+    // ---------------------------------------------------------
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+    // ---------------------------------------------------------
+    // Rolagem suave ao clicar nas setas
+    // ---------------------------------------------------------
+    document.querySelectorAll('.scroll-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
